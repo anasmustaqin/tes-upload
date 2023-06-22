@@ -1,5 +1,6 @@
 package com.example.projectbaruapi
 
+import DataItem
 import com.google.gson.annotations.SerializedName
 
 class ResultStaff (

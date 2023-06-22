@@ -1,5 +1,7 @@
 package com.example.projectbaruapi
 
+import DataItem
+
 interface CrudView {
     //Untuk get data
     fun onSuccessGet(data: List<DataItem>?)

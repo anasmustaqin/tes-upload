@@ -8,8 +8,9 @@ class Presenter (val crudView: MainActivity) {
 
     fun getData() {
         NetworkConfig.getService().getData()
-            .enqueue(object :retrofit2.Callback<ResultStaff> {
+            .enqueue(object : retrofit2.Callback<ResultStaff> {
                 override fun onFailure(call: Call<ResultStaff>, t: Throwable) {
+
                     crudView.onFailedGet(t.localizedMessage)
                     Log.d("Error", "Error Data")
                 }
@@ -26,27 +27,27 @@ class Presenter (val crudView: MainActivity) {
                     }
                 }
             })
-            }
+    }
 
-                fun hapusData(staffId: String?) {
-                NetworkConfig.getService()
-                        .deleteStaff(staffId)
-                        .enqueue(object :retrofit2.Callback<ResultStatus>{
-                            override fun onFailure(call: Call<ResultStatus>, t: Throwable)
-                            {
-                                crudView.onErrorDelete(t.localizedMessage)
-                            }
-
-                            override fun onResponse( call: Call<ResultStatus>,response: Response<ResultStatus>)                          {
-                                if (response.isSuccessful && response.body()?.status == 200)
-                                {
-                                    crudView.onSuccessDelete(response.body()?.pesan ?: "")
-                                }
-                                else {
-                                    crudView.onErrorDelete(response.body()?.pesan ?: "Tidak bisa dihapus")
-                                }
-                            }
-                        })
+    //hapus data
+    fun hapusData(id: String?) {
+        NetworkConfig.getService()
+            .deleteStaff(id)
+            .enqueue(object : retrofit2.Callback<ResultStatus> {
+                override fun onFailure(call: Call<ResultStatus>, t: Throwable) {
+                    crudView.onErrorDelete(t.localizedMessage)
                 }
 
+                override fun onResponse(
+                    call: Call<ResultStatus>,
+                    response: Response<ResultStatus>
+                ) {
+                    if (response.isSuccessful && response.body()?.status == 200) {
+                        crudView.onSuccessDelete(response.body()?.pesan ?: "")
+                    } else {
+                        crudView.onErrorDelete(response.body()?.pesan ?: "")
+                    }
+                }
+            })
     }
+}

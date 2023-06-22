@@ -1,5 +1,6 @@
 package com.example.projectbaruapi
 
+import DataItem
 import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +16,8 @@ class UpdateAddActivity : AppCompatActivity(), CrudView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update_add)
         presenter = Presenter2(this)
-       val itemDataItem = intent.getShortArrayExtra ("dataItem")
+       val itemDataItem = intent.getSerializableExtra ("dataItem")
+
         if (itemDataItem == null) {
             btnAction.text = "Tambah"
             btnAction.setOnClickListener{
@@ -25,7 +27,7 @@ class UpdateAddActivity : AppCompatActivity(), CrudView {
                     etAddress.text.toString())
             }
         } else if (itemDataItem != null){
-            btnAction.text = "Update"
+            btnAction.text = "UBAH DATA"
             val item = itemDataItem as DataItem?
             etName.setText(item?.staffName.toString())
             etPhone.setText(item?.staffHp.toString())
@@ -58,3 +60,4 @@ class UpdateAddActivity : AppCompatActivity(), CrudView {
     override fun onSuccessDelete(msg: String) {}
     override fun onErrorDelete(msg: String) {}
 }
+

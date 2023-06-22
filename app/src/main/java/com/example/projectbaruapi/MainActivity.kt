@@ -1,17 +1,21 @@
 package com.example.projectbaruapi
 
+import DataItem
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_update_edit.*
 
 class MainActivity : AppCompatActivity(),CrudView {
     private lateinit var presenter: Presenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//tambah
+
+//tambahan
         presenter = Presenter(this)
         presenter.getData()
 
@@ -19,28 +23,28 @@ class MainActivity : AppCompatActivity(),CrudView {
             startActivity (Intent(applicationContext,UpdateAddActivity :: class.java))
             finish()
         }
+
     }
 
     override fun onSuccessGet(data: List<DataItem>?) {
-        rvCategory.adapter = DataAdapter(data,object : DataAdapter.OnClickItem{
+        rvCategory.adapter = DataAdapter(data, object : DataAdapter.OnClickItem {
             override fun clicked(item: DataItem?) {
                 val bundle = Bundle()
-                bundle.putSerializable("DataItem", item)
-                val intent = Intent(applicationContext,UpdateAddActivity::class.java)
+                bundle.putSerializable("dataItem", item)
+                val intent = Intent(applicationContext, UpdateAddActivity::class.java)
                 intent.putExtras(bundle)
                 startActivity(intent)
             }
 
             override fun delete(item: DataItem?) {
-                              presenter.hapusData(item?.staffId)
-                startActivity(Intent(applicationContext,MainActivity::class.java))
+                presenter.hapusData(item?.staffId)
+                startActivity(Intent(applicationContext, MainActivity::class.java))
                 finish()
             }
         })
     }
-
     override fun onFailedGet(msg: String) {
-          }
+    }
 
     override fun onSuccessDelete(msg: String) {
         presenter.getData()

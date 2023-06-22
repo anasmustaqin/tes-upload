@@ -72,11 +72,18 @@
             </LinearLayout>
             <Button
                 android:textColor="@android:color/white"
-                android:text="Hapus"
+                android:text="Hapus Data"
                 android:background="@android:color/holo_red_light"
                 android:id="@+id/btnHapus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+<!--        <Button-->
+<!--                android:textColor="@android:color/white"-->
+<!--                android:text="Ubah Data"-->
+<!--                android:background="@android:color/holo_red_light"-->
+<!--                android:id="@+id/btnUbah"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"/> -->
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

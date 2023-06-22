@@ -24,24 +24,26 @@ class Presenter2 (val crudView : UpdateAddActivity)
             }
         })
 }
-//Update Data
 
-    fun updateData(id:String, name : String, hp : String, alamat : String) {
-    NetworkConfig.getService()
-        .updateStaff(id,name,hp,alamat)
-        .enqueue(object : retrofit2.Callback<ResultStatus>{
-            override fun onFailure(call: Call<ResultStatus>, t: Throwable) {
-                crudView.onErrorUpdate(t.localizedMessage)
+   //Update Data
+    fun updateData(id: String,name: String,hp: String,alamat: String) {
+        NetworkConfig.getService()
+            .updateStaff(id, name, hp, alamat)
+            .enqueue(object : retrofit2.Callback<ResultStatus> {
+                override fun onFailure(call: Call<ResultStatus>, t: Throwable) {
+                    crudView.onErrorUpdate(t.localizedMessage)
                 }
 
-            override fun onResponse(call: Call<ResultStatus>, response: Response<ResultStatus>) {
-                if (response.isSuccessful && response.body()?.status == 200)
-                {
-                    crudView.onSuccessUpdate(response.body()?.pesan ?: "")
-                }else {
-                    crudView.onErrorUpdate(response.body()?.pesan ?: "")
-            }
-        }
-})
-}
+                override fun onResponse(
+                    call: Call<ResultStatus>,
+                    response: Response<ResultStatus>
+                ) {
+                    if (response.isSuccessful && response.body()?.status == 200) {
+                        crudView.onSuccessUpdate(response.body()?.pesan ?: "")
+                    } else {
+                        crudView.onErrorUpdate(response.body()?.pesan ?: "")
+                    }
+                }
+            })
+    }
 }
